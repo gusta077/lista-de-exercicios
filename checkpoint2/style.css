@@ -5,8 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #b30000; /* <-- vermelho forte! */
-
+  background-color: #b30000; 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,9 +27,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: #b30000; /* <-- vermelho também no body para garantir */
+  background: #b30000; 
 }
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -58,14 +56,14 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ff0000; /* <-- vermelho forte versão clara */
-  }
+    background-color: #ff0000; 
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
   }
+}
 }
 body,
 #root {
