@@ -1,0 +1,89 @@
+/* Reset Básico */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+
+/* Layout Geral (Grid) */
+.app-container {
+  display: grid;
+  grid-template-areas: 
+    "sidebar main" 
+    "player player";
+  grid-template-columns: 240px 1fr; /* 240px fixo, resto flexível */
+  grid-template-rows: 1fr 90px;     /* Resto flexível, 90px fixo */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Sidebar */
+.sidebar {
+  grid-area: sidebar;
+  background: #000;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 1px solid #282828;
+}
+.sidebar nav p { color: #b3b3b3; cursor: pointer; padding: 5px 0; transition: 0.2s; font-weight: bold; }
+.sidebar nav p:hover { color: white; }
+.logo { font-size: 1.2rem; font-weight: bold; color: white; margin-bottom: 10px; }
+
+.playlist-header { display: flex; justify-content: space-between; align-items: center; color: #b3b3b3; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 10px; }
+.playlist-header button { background: none; border: none; color: #b3b3b3; cursor: pointer; font-size: 1.2rem; }
+.playlists-area ul { list-style: none; overflow-y: auto; height: 200px; padding: 0; }
+.playlists-area li { color: #b3b3b3; padding: 5px 0; cursor: pointer; font-size: 0.9rem; }
+.playlists-area li:hover { color: white; }
+
+/* Conteúdo Principal */
+.main-content {
+  grid-area: main;
+  background: linear-gradient(to bottom, #1f1f1f, #121212);
+  padding: 20px;
+  overflow-y: auto; /* Permite rolar apenas esta parte */
+}
+
+header { display: flex; justify-content: space-between; margin-bottom: 30px; }
+header input {
+  background: white; border: none; border-radius: 50px; padding: 10px 20px; width: 300px; outline: none;
+}
+.avatar { cursor: pointer; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #181818; padding: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; position: relative;
+}
+.card:hover { background: #282828; }
+.card-img { height: 140px; background: #333; border-radius: 4px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.card h3 { font-size: 1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card p { font-size: 0.85rem; color: #b3b3b3; }
+
+.fav-btn {
+  position: absolute; bottom: 20px; right: 20px; background: transparent; border: none; font-size: 1.2rem; cursor: pointer;
+}
+.fav-btn.active { transform: scale(1.1); }
+
+/* Player Bar */
+.player-bar {
+  grid-area: player;
+  background: #181818;
+  border-top: 1px solid #282828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10;
+}
+.player-bar.empty { justify-content: center; color: #b3b3b3; }
+
+.track-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+.track-info small { color: #b3b3b3; font-size: 0.75rem; }
+
+.controls { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 40%; }
+.play-btn { background: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.progress { width: 100%; height: 4px; border-radius: 2px; cursor: pointer; }
+
+.volume { font-size: 1.2rem; }
