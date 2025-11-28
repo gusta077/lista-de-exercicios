@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -28,3 +29,34 @@ function AbrirFechar() {
 }
 
 export default AbrirFechar;
+=======
+import { useState } from 'react';
+import './App.css';
+
+function Lista_Itens() {
+  const itens = ["Diamante", "Ouro", "Ferro", "Esmeralda"];
+  return(
+    <div>
+      <ul>
+        {itens.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Cofre_Digital() {
+  const [abrir, setAbrir] = useState(true);
+  return(
+    <div>
+      <button onClick={() => setAbrir(!abrir)}>
+        {abrir ? 'Fechar Cofre 🔒' : 'Abrir Cofre 🔓'}
+      </button>
+      {abrir && <Lista_Itens />}
+    </div>
+  );
+}
+
+export default Cofre_Digital;
+>>>>>>> 8afef12dea4e102a44035f993bd89961f2c1e508
