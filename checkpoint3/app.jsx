@@ -1,18 +1,52 @@
 import { useState, useRef, createContext, useContext, useEffect } from 'react';
 import './App.css';
-
-/* --- 1. DADOS E CONTEXTO (Estado Global) --- */
 const MusicContext = createContext();
 
 const MusicProvider = ({ children }) => {
-  // Dados iniciais
   const [songs] = useState([
-    { id: 1, title: "Bohemian Rhapsody", artist: "Queen", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", duration: "5:55" },
-    { id: 2, title: "Billie Jean", artist: "Michael Jackson", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", duration: "4:54" },
-    { id: 3, title: "Hotel California", artist: "Eagles", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", duration: "6:30" }
+    { 
+      id: 1, 
+      title: "Águas de Março", 
+      artist: "Elis Regina & Tom Jobim", 
+      cover: "https://placehold.co/300/e85d04/ffffff?text=Elis+%26+Tom", 
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", 
+      duration: "3:32" 
+    },
+    { 
+      id: 2, 
+      title: "O Mundo é um Moinho", 
+      artist: "Cartola", 
+      cover: "https://placehold.co/300/2a9d8f/ffffff?text=Cartola", 
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3", 
+      duration: "3:54" 
+    },
+    { 
+      id: 3, 
+      title: "Construção", 
+      artist: "Chico Buarque", 
+      cover: "https://placehold.co/300/264653/ffffff?text=Construcao", 
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", 
+      duration: "6:24" 
+    },
+    { 
+      id: 4, 
+      title: "Garota de Ipanema", 
+      artist: "Tom Jobim", 
+      cover: "https://placehold.co/300/e9c46a/000000?text=Tom+Jobim", 
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", 
+      duration: "2:45" 
+    },
+    { 
+      id: 5, 
+      title: "Mas Que Nada", 
+      artist: "Jorge Ben Jor", 
+      cover: "https://placehold.co/300/f4a261/000000?text=Jorge+Ben", 
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", 
+      duration: "3:02" 
+    }
   ]);
 
-  const [playlists, setPlaylists] = useState(["Rock Clássico", "Top Brasil", "Relax"]);
+  const [playlists, setPlaylists] = useState(["Bossa Nova Essentials", "MPB Clássica", "Samba Raiz"]);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [favorites, setFavorites] = useState([]);
@@ -20,7 +54,6 @@ const MusicProvider = ({ children }) => {
   
   const audioRef = useRef(null);
 
-  // Lógica do Player
   const playTrack = (song) => {
     setCurrentSong(song);
     setIsPlaying(true);
@@ -50,15 +83,12 @@ const MusicProvider = ({ children }) => {
     </MusicContext.Provider>
   );
 };
-
-/* --- 2. COMPONENTES VISUAIS --- */
-
-// Barra Lateral
 const Sidebar = () => {
   const { playlists, addPlaylist } = useContext(MusicContext);
   return (
     <div className="sidebar">
-      <div className="logo">🟢 Spotify Clone</div>
+      {}
+      <div className="logo">🟢 Spotify</div>
       <nav>
         <p>🏠 Início</p>
         <p>🔍 Buscar</p>
@@ -77,7 +107,6 @@ const Sidebar = () => {
   );
 };
 
-// Área Principal (Header + Lista)
 const MainContent = () => {
   const { songs, searchTerm, setSearchTerm, playTrack, toggleFavorite, favorites } = useContext(MusicContext);
   
@@ -99,11 +128,11 @@ const MainContent = () => {
       </header>
 
       <div className="song-list">
-        <h2>{searchTerm ? "Resultados da busca" : "Músicas Populares"}</h2>
+        <h2>{searchTerm ? "Resultados da busca" : "Clássicos da MPB"}</h2>
         <div className="grid">
           {filteredSongs.map(song => (
             <div key={song.id} className="card" onClick={() => playTrack(song)}>
-              <div className="card-img">🎵</div>
+              <img src={song.cover} alt={song.title} className="card-img" />
               <h3>{song.title}</h3>
               <p>{song.artist}</p>
               <button 
@@ -120,25 +149,30 @@ const MainContent = () => {
   );
 };
 
-// Player (Barra Inferior)
 const Player = () => {
   const { currentSong, isPlaying, togglePlay, audioRef } = useContext(MusicContext);
 
   useEffect(() => {
     if (currentSong && isPlaying) {
-      audioRef.current.play().catch(e => console.log("Erro de play:", e));
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+          playPromise.catch(e => console.log("Erro ao reproduzir:", e));
+      }
     }
   }, [currentSong, isPlaying]);
 
-  if (!currentSong) return <div className="player-bar empty">Selecione uma música</div>;
+  if (!currentSong) return <div className="player-bar empty">Selecione uma música no Spotify</div>;
 
   return (
     <div className="player-bar">
       <audio ref={audioRef} src={currentSong.src} onEnded={() => togglePlay()} />
       
       <div className="track-info">
-        <h4>{currentSong.title}</h4>
-        <small>{currentSong.artist}</small>
+        <img src={currentSong.cover} alt="Capa" className="player-cover" />
+        <div>
+          <h4>{currentSong.title}</h4>
+          <small>{currentSong.artist}</small>
+        </div>
       </div>
 
       <div className="controls">
@@ -153,7 +187,6 @@ const Player = () => {
   );
 };
 
-/* --- 3. COMPONENTE APP (Montagem Final) --- */
 function App() {
   return (
     <MusicProvider>
