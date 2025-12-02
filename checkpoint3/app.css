@@ -1,19 +1,18 @@
-/* Reset Básico */
+
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
-/* Layout Geral (Grid) */
 .app-container {
   display: grid;
   grid-template-areas: 
     "sidebar main" 
     "player player";
-  grid-template-columns: 240px 1fr; /* 240px fixo, resto flexível */
-  grid-template-rows: 1fr 90px;     /* Resto flexível, 90px fixo */
+  grid-template-columns: 240px 1fr; 
+  grid-template-rows: 1fr 90px;     
   height: 100vh;
   width: 100vw;
 }
 
-/* Sidebar */
+
 .sidebar {
   grid-area: sidebar;
   background: #000;
@@ -33,12 +32,11 @@
 .playlists-area li { color: #b3b3b3; padding: 5px 0; cursor: pointer; font-size: 0.9rem; }
 .playlists-area li:hover { color: white; }
 
-/* Conteúdo Principal */
 .main-content {
   grid-area: main;
   background: linear-gradient(to bottom, #1f1f1f, #121212);
   padding: 20px;
-  overflow-y: auto; /* Permite rolar apenas esta parte */
+  overflow-y: auto; 
 }
 
 header { display: flex; justify-content: space-between; margin-bottom: 30px; }
@@ -66,7 +64,7 @@ header input {
 }
 .fav-btn.active { transform: scale(1.1); }
 
-/* Player Bar */
+
 .player-bar {
   grid-area: player;
   background: #181818;
